@@ -5,14 +5,10 @@ import PropTypes from 'prop-types';
 import './style.scss';
 
 export default function SearchBar({ inputValue, onChangeInputValue, onSubmitForm }) {
-  const handleOnSubmit = () => {
-    console.log("j'envoie le form");
-    onSubmitForm();
-  };
   return (
     <div className="searchbar">
       <Segment>
-        <Form onSubmit={handleOnSubmit}>
+        <Form onSubmit={onSubmitForm}>
           <Form.Input
             icon='search'
             iconPosition='left'

@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 
 import './style.scss';
 
-export default function Message({ content }) {
+export default function Message({ content, isError }) {
   return (
     <div className="message">
-      <Msg>{content}</Msg>
+      <Msg negative={isError}>{content}</Msg>
     </div>
     );
 }
 
 Message.propTypes = {
   content: PropTypes.string.isRequired,
+  isError: PropTypes.bool.isRequired,
 };

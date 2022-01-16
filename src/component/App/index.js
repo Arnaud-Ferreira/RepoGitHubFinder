@@ -6,6 +6,7 @@ import Header from '../Header';
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import RepoResults from '../RepoResults';
+import Loading from '../Loading';
 
 import './style.scss';
 
@@ -22,13 +23,29 @@ function getResultItems(items) {
 export default function App() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const loadRepos = () => {
+    setLoading(true);
+
     axios.get(`https://api.github.com/search/repositories?q=${search}`)
-      .then((response) => {
-        setResults(response.data.items);
+      // Destructuring the data object 
+      .then(({ data }) => {
+      // Picking the properties i need and rename rename the totalcount property
+        const { items, total_count: totalCount } = data;
+        setResults(items);
+        setMessage(`The search have found ${totalCount} result${totalCount > 1 ? 's' : ''}`);
       })
-      .catch((error)=> console.log(error));
+      .catch((error) => {
+        console.log(error);
+        setMessage('Une erreur est survenue');
+        setHasError(true);
+      })
+      .finally(() => {
+       setLoading(false);
+      });
   };
 
   return (
@@ -39,8 +56,17 @@ export default function App() {
        onChangeInputValue={setSearch}
        onSubmitForm={loadRepos}
      />
-     <Message content="The search have found 1000 results" />
-     <RepoResults results={getResultItems(results)} />
+     <Message
+       content={message}
+       isError={hasError} 
+     />
+     {/* If loading is true we display the loader */}
+     {loading ? (
+     <Loading />
+     ) : (
+     // otherwise we display the Results
+       <RepoResults results={getResultItems(results)} />
+     )}
    </Container>
   );
 }
