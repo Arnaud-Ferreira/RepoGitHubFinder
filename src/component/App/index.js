@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
-
+import axios from 'axios';
 // Importing components
 import Header from '../Header';
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import RepoResults from '../RepoResults';
-
-// import data from the json folder
-import resultsData from '../../data/repo';
 
 import './style.scss';
 
@@ -24,9 +21,14 @@ function getResultItems(items) {
 } 
 export default function App() {
   const [search, setSearch] = useState('');
+  const [results, setResults] = useState([]);
 
   const loadRepos = () => {
-    console.log('je veux envoyer la requête vers GitHub');
+    axios.get(`https://api.github.com/search/repositories?q=${search}`)
+      .then((response) => {
+        setResults(response.data.items);
+      })
+      .catch((error)=> console.log(error));
   };
 
   return (
@@ -38,7 +40,7 @@ export default function App() {
        onSubmitForm={loadRepos}
      />
      <Message content="The search have found 1000 results" />
-     <RepoResults results={getResultItems(resultsData.items)} />
+     <RepoResults results={getResultItems(results)} />
    </Container>
   );
 }
