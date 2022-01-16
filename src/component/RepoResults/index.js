@@ -12,13 +12,10 @@ export default function RepoResults({ results }) {
         {results.map((result) => (
           <Result
             key={result.id}
-            imageUrl={result.owner.avatar_url}
-            title={result.full_name}
-            username={result.owner.login}
-            description={result.description} />
+            {... result} />
         ))}
       </Card.Group>
-        </div>
+    </div>
     );
 }
 
@@ -26,12 +23,6 @@ RepoResults.propTypes = {
   results: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      full_name: PropTypes.string.isRequired,
-      owner: PropTypes.shape({
-        login: PropTypes.string.isRequired,
-        avatar_url: PropTypes.string.isRequired,
       }),
-      description: PropTypes.string,
-    }),
   ).isRequired,
 };

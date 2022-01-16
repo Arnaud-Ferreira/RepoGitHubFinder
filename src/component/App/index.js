@@ -12,15 +12,23 @@ import resultsData from '../../data/repo';
 
 import './style.scss';
 
-function App() {
+export default function App() {
+  // implicit return of objects
+  const resultsItems = resultsData.items.map((result) => ({
+      id: result.id,
+      imageUrl: result.owner.avatar_url,
+      title: result.full_name,
+      username: result.owner.login,
+      description: result.description,
+  }));
+
   return (
    <Container className="app">
      <Header />
      <SearchBar />
      <Message content="The search have found 1000 results" />
-     <RepoResults results={resultsData.items} />
+     <RepoResults results={resultsItems} />
    </Container>
   );
 }
 
-export default App;
