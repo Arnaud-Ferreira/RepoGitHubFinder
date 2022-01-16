@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from 'semantic-ui-react';
 
 // Importing components
 import Header from '../Header';
@@ -10,12 +11,12 @@ import './style.scss';
 
 function App() {
   return (
-   <div className="App">
+   <Container className="app">
      <Header />
      <SearchBar />
      <Message />
      <RepoResults />
-   </div>
+   </Container>
   );
 }
 
