@@ -8,14 +8,14 @@ export default function Result({
   imageUrl,
   title,
   username,
-  description
+  description,
  }) {
   return (
     <Card>
       <Image src={imageUrl} wrapped ui={true} />
         <Card.Content>
-          <Card.Header textAlign="left">{title}</Card.Header>
-          <Card.Meta>
+          <Card.Header>{title}</Card.Header>
+          <Card.Meta textAlign="center">
             <span>{username}</span>
           </Card.Meta>
           <Card.Description>

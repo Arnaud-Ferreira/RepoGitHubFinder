@@ -4,3 +4,12 @@
 img {
     max-width: 150px;
 }
+.search-header__title {
+    display: flex;
+    justify-content: center;
+}
+.sitename {
+    padding-left: 0.5rem;
+    margin-top: 1.1rem;
+    font-size: 1.7em;
+}
