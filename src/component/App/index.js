@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import axios from 'axios';
-import { Route } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 
 
 // Importing components
@@ -10,7 +10,7 @@ import SearchBar from '../SearchBar';
 import Message from '../Message';
 import RepoResults from '../RepoResults';
 import Loading from '../Loading';
-// import FAQ from '../FAQ';
+import FAQ from '../FAQ';
 
 import './style.scss';
 
@@ -60,7 +60,9 @@ export default function App() {
   return (
    <Container className="app">
      <Header />
-     <SearchBar
+     <Routes>
+       <Route path="/" exact>
+       <SearchBar
        inputValue={search}
        onChangeInputValue={setSearch}
        onSubmitForm={loadRepos}
@@ -77,9 +79,13 @@ export default function App() {
      // otherwise we display the Results
        <RepoResults results={getResultItems(results)} />
      )}
-     {/* <Route path="/faq">
-       <FAQ />
-     </Route> */}
+      </Route>
+
+       <Route path="/faq">
+         <FAQ />
+       </Route>
+       <Route>404</Route>
+     </Routes>
    </Container>
   );
 }
