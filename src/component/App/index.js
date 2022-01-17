@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Container } from 'semantic-ui-react';
 import axios from 'axios';
+import { Route } from 'react-router-dom';
+
+
 // Importing components
 import Header from '../Header';
 import SearchBar from '../SearchBar';
 import Message from '../Message';
 import RepoResults from '../RepoResults';
 import Loading from '../Loading';
+// import FAQ from '../FAQ';
 
 import './style.scss';
 
@@ -20,15 +24,19 @@ function getResultItems(items) {
     description: result.description,
   }));
 } 
+
+
 export default function App() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const [hasError, setHasError] = useState(false);
+  const [isMessageVisible, setMessageVisible] = useState(false);
 
   const loadRepos = () => {
     setLoading(true);
+    setHasError(false);
 
     axios.get(`https://api.github.com/search/repositories?q=${search}`)
       // Destructuring the data object 
@@ -45,6 +53,7 @@ export default function App() {
       })
       .finally(() => {
        setLoading(false);
+       setMessageVisible(true);
       });
   };
 
@@ -58,7 +67,8 @@ export default function App() {
      />
      <Message
        content={message}
-       isError={hasError} 
+       isError={hasError}
+       visible={isMessageVisible}
      />
      {/* If loading is true we display the loader */}
      {loading ? (
@@ -67,6 +77,9 @@ export default function App() {
      // otherwise we display the Results
        <RepoResults results={getResultItems(results)} />
      )}
+     {/* <Route path="/faq">
+       <FAQ />
+     </Route> */}
    </Container>
   );
 }
