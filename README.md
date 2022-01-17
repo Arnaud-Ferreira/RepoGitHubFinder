@@ -17,6 +17,8 @@ It was made using React & hooks and Semantic-ui & Sass for the style.
 
 ## Previews
 
+#### Loading datas from the API
+![loader](https://user-images.githubusercontent.com/80698222/149822164-eb3eea79-425a-43c2-b9ce-4523febcd86d.png)
 #### Home Page
 ![preview](https://user-images.githubusercontent.com/80698222/149820370-dbb7e071-77f3-4b1f-b8a5-6ae8aafcdf71.png)
 <br>
